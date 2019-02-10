@@ -1,12 +1,13 @@
 from contextlib import contextmanager
 from datetime import datetime
+from pprint import pprint
 
 @contextmanager
 def my_open(file_path):
     try:
         time_start = datetime.now()
         print('Время запуска кода в менеджере контекста:', time_start)
-        file = open(file_path)
+        file = open(file_path, encoding='utf-8')
         yield file
     finally:
         file.close()
@@ -15,10 +16,8 @@ def my_open(file_path):
         time_difference = time_finish - time_start
         print('На выполнение кода было потрачено:', time_difference)
 
-with my_open('test_append.txt') as f: #как вставить encoding='utf-8', чтоб не было краказябр?
+with my_open('test_append.txt') as f:
     def get_cook_book():
-    #global cook_book
-    #cook_book = {}
       for line in f:
         name_of_dish = line.strip()
         ingridient_count = f.readline()
@@ -31,5 +30,5 @@ with my_open('test_append.txt') as f: #как вставить encoding='utf-8',
       return cook_book
 
     cook_book = {}
-    print(get_cook_book())
+    pprint(get_cook_book())
 
